@@ -1,1 +1,1 @@
-# DiningManagementSystem
+#Smart Meal Solution
