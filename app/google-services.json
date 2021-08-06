@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "634983378923",
+    "firebase_url": "https://hallmanagementsystem-ed971-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hallmanagementsystem-ed971",
+    "storage_bucket": "hallmanagementsystem-ed971.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634983378923:android:04484675a3b7cdca7c73ae",
+        "android_client_info": {
+          "package_name": "com.blogspot.rajbtc.voicecontrolledhomeautomation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634983378923-2ujophraf0v92kp1k4v5prq2kcqmaeli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI1O8Glrc1EZFEWXsl5sVqDjfn4iG-U5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634983378923-2ujophraf0v92kp1k4v5prq2kcqmaeli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
