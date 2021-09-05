@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "634983378923",
-    "firebase_url": "https://hallmanagementsystem-ed971-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "hallmanagementsystem-ed971",
-    "storage_bucket": "hallmanagementsystem-ed971.appspot.com"
+    "project_number": "65515919804",
+    "firebase_url": "https://smartmealsolution-default-rtdb.firebaseio.com",
+    "project_id": "smartmealsolution",
+    "storage_bucket": "smartmealsolution.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:634983378923:android:04484675a3b7cdca7c73ae",
+        "mobilesdk_app_id": "1:65515919804:android:cafef8f6459415c4ec33b9",
         "android_client_info": {
           "package_name": "com.blogspot.rajbtc.voicecontrolledhomeautomation"
         }
       },
       "oauth_client": [
         {
-          "client_id": "634983378923-2ujophraf0v92kp1k4v5prq2kcqmaeli.apps.googleusercontent.com",
+          "client_id": "65515919804-up36gr791uv6derqc76nb0v1lt0vfqkt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBI1O8Glrc1EZFEWXsl5sVqDjfn4iG-U5w"
+          "current_key": "AIzaSyAz4B-HnSSEimtk8Cho3VC4aB3VzzjALhY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "634983378923-2ujophraf0v92kp1k4v5prq2kcqmaeli.apps.googleusercontent.com",
+              "client_id": "65515919804-up36gr791uv6derqc76nb0v1lt0vfqkt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

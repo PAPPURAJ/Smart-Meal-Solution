@@ -81,14 +81,6 @@ public class MainFragment extends Fragment {
 
     void loadData(){
 
-
-
-
-
-
-
-
-
         arrayList.clear();
         FirebaseDatabase.getInstance().getReference(name).addChildEventListener(new ChildEventListener() {
             @Override
@@ -98,7 +90,7 @@ public class MainFragment extends Fragment {
                 if(!arrayList.contains(date))
                     arrayList.add(date);
                 recyclerView.setAdapter(new RecyAdapter(getContext(),arrayList));
-                totalTv.setText("Balance: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
+                totalTv.setText("Total Cash in: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
 
 
             }
@@ -110,7 +102,7 @@ public class MainFragment extends Fragment {
                 if(!arrayList.contains(date))
                     arrayList.add(date);
                 recyclerView.setAdapter(new RecyAdapter(getContext(),arrayList));
-                totalTv.setText("Balance: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
+                totalTv.setText("Total Cash in: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
             }
 
             @Override

@@ -35,12 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         getdata();
 
-        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    t1.setLanguage(Locale.UK);
-                }
+        t1=new TextToSpeech(getApplicationContext(), status -> {
+            if(status != TextToSpeech.ERROR) {
+                t1.setLanguage(Locale.UK);
             }
         });
 

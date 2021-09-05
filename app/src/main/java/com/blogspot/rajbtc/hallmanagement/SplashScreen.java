@@ -22,6 +22,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         handler=new Handler();
         runnable= () -> {
             progressBar.setProgress(i);

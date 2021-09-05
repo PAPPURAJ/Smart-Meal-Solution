@@ -1,4 +1,4 @@
-package com.blogspot.rajbtc.hallmanagement.user;
+    package com.blogspot.rajbtc.hallmanagement.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.rajbtc.hallmanagement.R;
@@ -27,6 +28,7 @@ import java.util.Locale;
 
 public class UserMain extends AppCompatActivity {
 
+    TextView userInfoTv;
     FirebaseDatabase firebaseDatabase;
     double balance=0,mealRate=0;
     boolean isMeal1=false,isMeal2=false;
@@ -39,6 +41,7 @@ public class UserMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main2);
+        userInfoTv=findViewById(R.id.userMain_infoTv);
 
         t1=new TextToSpeech(getApplicationContext(), status -> {
             if(status != TextToSpeech.ERROR) {
@@ -74,6 +77,7 @@ public class UserMain extends AppCompatActivity {
         Intent intent=new Intent(this, CashIn_User.class);
         intent.putExtra("msg","Recharged balance: "+balance+"\nTotal cost: "+mealArray.size()*mealRate+"\nAvailable balance: "+(balance-(mealArray.size()*mealRate)));
         startActivity(intent);
+
     }
 
 
@@ -86,6 +90,7 @@ public class UserMain extends AppCompatActivity {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                mealRate=dataSnapshot.getValue(Double.class);
+               checkNotice();
            }
 
            @Override
@@ -101,6 +106,7 @@ public class UserMain extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int val=dataSnapshot.getValue(Integer.class);
                 isMeal1=val==1?true:false;
+                checkNotice();
             }
 
             @Override
@@ -113,6 +119,7 @@ public class UserMain extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int val=dataSnapshot.getValue(Integer.class);
                 isMeal2=val==1?true:false;
+                checkNotice();
             }
 
             @Override
@@ -130,7 +137,7 @@ public class UserMain extends AppCompatActivity {
                 String s=snapshot.getKey();
                 if(!mealArray.contains(s)){
                     mealArray.add(s);
-                }
+                }checkNotice();
             }
 
             @Override
@@ -138,7 +145,7 @@ public class UserMain extends AppCompatActivity {
                 String s=snapshot.getKey();
                 if(!mealArray.contains(s)){
                     mealArray.add(s);
-                }
+                }checkNotice();
             }
 
             @Override
@@ -166,6 +173,7 @@ public class UserMain extends AppCompatActivity {
                 }catch (Exception e){
                     balance=0;
                 }
+                checkNotice();
             }
 
             @Override
@@ -232,10 +240,14 @@ public class UserMain extends AppCompatActivity {
                     else if(text.contains("total") && text.contains("cost")){
                         t1.speak("The total cost is "+mealArray.size()*mealRate+" taka", TextToSpeech.QUEUE_FLUSH, null);
                     }
-                    else if(text.contains("total")){
+                    else if(text.contains("total") && (text.contains("cash") || text.contains("cache"))){
+                        t1.speak("The total cash in is "+balance+" taka", TextToSpeech.QUEUE_FLUSH, null);
+                    }
+
+                    else if(text.contains("total") || text.contains("meal")){
                         t1.speak("The total meal is "+mealArray.size(), TextToSpeech.QUEUE_FLUSH, null);
                     }
-                    else if(text.contains("lauch") ){
+                    else if(text.contains("lauch") || text.contains("lunch") || text.contains("launch") ){
                         t1.speak((isMeal1?"Yes!":"No!")+" Your first meal is "+(isMeal1?"On!":"Off!"), TextToSpeech.QUEUE_FLUSH, null);
                     }
                     else if(text.contains("dinner") ){
@@ -243,7 +255,7 @@ public class UserMain extends AppCompatActivity {
                     }
 
 
-                    else if(text.contains("balance")){
+                    else if(text.contains("balance") || text.contains("available")){
                         t1.speak("Your current balance is "+(balance-(mealRate*mealArray.size()))+" taka", TextToSpeech.QUEUE_FLUSH, null);
                     }else{
                         t1.speak("Sorry!, I don't understand!", TextToSpeech.QUEUE_FLUSH, null);
@@ -255,5 +267,15 @@ public class UserMain extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    void checkNotice(){
+        double av=balance-(mealArray.size()*mealRate);
+        if(av>10 & av<=100){
+            userInfoTv.setText("Your balance is low!");
+        }else{
+            userInfoTv.setText("");
+        }
+
     }
 }
