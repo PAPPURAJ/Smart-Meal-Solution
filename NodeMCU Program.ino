@@ -6,8 +6,8 @@
 
 #define FIREBASE_HOST "hallmanagementsystem-ed971-default-rtdb.asia-southeast1.firebasedatabase.app"
 #define FIREBASE_AUTH "jVIANkhTta2PaOuiBk3Xm8qPoRgv9FqMHJ8pdnlG"
-#define WIFI_SSID "Roboment"
-#define WIFI_PASSWORD "roboment@2018"
+#define WIFI_SSID "Dining"
+#define WIFI_PASSWORD "dining123"
 FirebaseData firebaseData,loadData;
 FirebaseJson json;
 
@@ -16,7 +16,7 @@ MFRC522 mfrc522(D4, D2);
 
 String _name[4] = {"Najnin", "Zainal", "Sojib", "Shanjana"};
 
-int dn=1,dd = 1, mm = 1, yy = 2021;
+int dn=1,dd = 5, mm = 9, yy = 2021;
 
 int mealRate=0;
 
