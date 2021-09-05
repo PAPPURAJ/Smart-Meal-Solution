@@ -66,6 +66,6 @@ public class LoginActivity extends Activity {
 
 
 
-        }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),"Failed!",Toast.LENGTH_SHORT).show());
+        }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),"Login Failed!",Toast.LENGTH_SHORT).show());
     }
 }

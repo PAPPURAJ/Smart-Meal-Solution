@@ -22,13 +22,30 @@ import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
 
-    String name,TAG="===Main Fragment===";
+    int dbCount=0,localCount=0;
+    String name,fieldName,TAG="===Main Fragment===";
     View view;
     ArrayList<String> arrayList=new ArrayList<>();
     TextView totalTv;
     double mealRate=0,balance=0;
     RecyclerView recyclerView;
     public MainFragment(String name) {
+        fieldName=name;
+
+
+        FirebaseDatabase.getInstance().getReference("Users").child(name).child("MealCount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dbCount=dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         this.name="MealList/"+name;
         FirebaseDatabase.getInstance().getReference("Users/"+name+"/Balance").addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,7 +106,8 @@ public class MainFragment extends Fragment {
                 String date=snapshot.getKey().replace('-','/');
                 if(!arrayList.contains(date))
                     arrayList.add(date);
-                recyclerView.setAdapter(new RecyAdapter(getContext(),arrayList));
+                localCount=arrayList.size();
+                recyclerView.setAdapter(new RecyAdapter(getContext(),FirebaseDatabase.getInstance().getReference("Users/"+fieldName+"/MealCount"),arrayList));
                 totalTv.setText("Total Cash in: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
 
 
@@ -101,7 +119,8 @@ public class MainFragment extends Fragment {
                 String date=snapshot.getKey().replace('-','/');
                 if(!arrayList.contains(date))
                     arrayList.add(date);
-                recyclerView.setAdapter(new RecyAdapter(getContext(),arrayList));
+                localCount=arrayList.size();
+                recyclerView.setAdapter(new RecyAdapter(getContext(),FirebaseDatabase.getInstance().getReference("Users/"+fieldName+"/MealCount"),arrayList));
                 totalTv.setText("Total Cash in: "+balance+" Tk\nCost: "+mealRate*arrayList.size()+" Tk\nAvailable balance: "+(balance-(mealRate*arrayList.size()))+" Tk");
             }
 
@@ -121,4 +140,6 @@ public class MainFragment extends Fragment {
             }
         });
     }
+
+
 }

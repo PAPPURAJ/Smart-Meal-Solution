@@ -80,7 +80,7 @@ public class MealDetailsUser extends AppCompatActivity {
                     arrayList.add(date);
                 }
 
-                recyclerView.setAdapter(new RecyAdapter(MealDetailsUser.this,arrayList));
+                recyclerView.setAdapter(new RecyAdapter(MealDetailsUser.this,FirebaseDatabase.getInstance().getReference("Users/"+username+"/MealCount"),arrayList));
 
                 totalTv.setText("Total Cash in: "+debit+"\nCost: "+mealRate*arrayList.size()+" TK\n"+"Available Balance: "+(debit-mealRate*arrayList.size()));
             }
@@ -93,7 +93,7 @@ public class MealDetailsUser extends AppCompatActivity {
                     arrayList.add(date);
                 }
 
-                recyclerView.setAdapter(new RecyAdapter(MealDetailsUser.this,arrayList));
+                recyclerView.setAdapter(new RecyAdapter(MealDetailsUser.this,FirebaseDatabase.getInstance().getReference("Users/"+username+"/MealCount"),arrayList));
                 totalTv.setText("Total Cash in: "+debit+"\nCost: "+mealRate*arrayList.size()+" TK\n"+"Available Balance: "+(debit-mealRate*arrayList.size()));
 
             }

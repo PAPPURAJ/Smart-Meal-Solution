@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blogspot.rajbtc.hallmanagement.R;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -17,9 +18,10 @@ public class RecyAdapter extends RecyclerView.Adapter<RecyAdapter.MyHolder> {
     private ArrayList<String> arrayList;
     private double total=0;
 
-    public RecyAdapter(Context context, ArrayList<String> arrayList) {
+    public RecyAdapter(Context context, DatabaseReference dbRef, ArrayList<String> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+        dbRef.setValue(arrayList.size());
 
     }
 
