@@ -1,18 +1,19 @@
-#include <SPI.h>
-#include <MFRC522.h>
+#include <SPI.h>  //SPI BUS
+#include <MFRC522.h>//RFID READER
 
-#include "FirebaseESP8266.h"
-#include <ESP8266WiFi.h>
+#include "FirebaseESP8266.h"//Firebase Database
+#include <ESP8266WiFi.h>//Wifi module
 
-#define FIREBASE_HOST "hallmanagementsystem-ed971-default-rtdb.asia-southeast1.firebasedatabase.app"
-#define FIREBASE_AUTH "jVIANkhTta2PaOuiBk3Xm8qPoRgv9FqMHJ8pdnlG"
-#define WIFI_SSID "Dining"
-#define WIFI_PASSWORD "dining123"
-FirebaseData firebaseData,loadData;
-FirebaseJson json;
+#define FIREBASE_HOST "smartmealsolution-default-rtdb.firebaseio.com"//Database URL
+#define FIREBASE_AUTH "btk0TIY90B0JYH7SBuy2pmdLh5TozNzJqGEsGPdT"//Database secrate
+#define WIFI_SSID "Dining"//Wifi name
+#define WIFI_PASSWORD "dining123"//Wifi pass
+
+FirebaseData firebaseData,loadData;//Object veriable
+FirebaseJson json;//Object veriable
 
 
-MFRC522 mfrc522(D4, D2);
+MFRC522 mfrc522(D4, D2);//RFID Pin set
 
 String _name[4] = {"Najnin", "Zainal", "Sojib", "Shanjana"};
 
@@ -65,12 +66,12 @@ void writeDB(String field) {
    
    
 
-  if(balance<(mealRate*(count+1))){
+  if((balance-(mealRate*count))<50){ //Checking balance and purchase meal
     insBalError();
     return;
   }
 
-  if(loadR(field)){
+  if(loadR(field)){ 
   Firebase.setString(firebaseData, "/MealList/" + field + "/" + String(dd) + "-" + String(mm) + "-" + String(yy)+" "+(dn==1?"Day":"Night"), "1" );
   Firebase.setInt(firebaseData, "/Users/"+field+"/MealCount", count+1 );
   Serial.println("Attendence with " + field);
@@ -81,60 +82,6 @@ void writeDB(String field) {
 
 
 }
-
-
-void setup() {
-t1();
-  pinMode(D0, OUTPUT);
-  pinMode(D8, INPUT);
-  Serial.begin(9600); 
-  SPI.begin();
-  mfrc522.PCD_Init();
-
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    digitalWrite(D4, 0);
-    delay(100);
-    Serial.print(".");
-    digitalWrite(D4, 1);
-    delay(100);
-  }
-
-  Serial.println();
-  Serial.print("Connected with IP: ");
-  Serial.println(WiFi.localIP());
-  Serial.println();
-
-  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  Firebase.reconnectWiFi(true);
-
-   Firebase.setString(firebaseData, "Testing", "1" );
-}
-
-void loop() {
-
-//t2();
-  if (digitalRead(D8))
-  {
-    inc();
-    while (digitalRead(D8))
-      delay(50);
-    Serial.println("In inf");
-
-    return;
-  }
-
-
-  int i = checkCard();
-  Serial.println(i);
-  if(i>0 && i<5)
-    writeDB(_name[i-1]);
-
-  delay(300);
-
-}
-
 
 
 
@@ -200,6 +147,8 @@ int checkCard() {
 
   delay(500);
   content.toUpperCase();
+  Serial.print("Card serial: ");
+  Serial.println(content.substring(1));
 
   if (content.substring(1) == "D3 D7 99 1C") //change here the UID of the card/cards that you want to give access
   {
@@ -303,4 +252,79 @@ void t2(){
 
   // Dump debug info about the card; PICC_HaltA() is automatically called
   mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void setup() {
+t1();
+  pinMode(D0, OUTPUT);
+  pinMode(D8, INPUT);
+  Serial.begin(9600); 
+  SPI.begin();
+  mfrc522.PCD_Init();
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    digitalWrite(D4, 0);
+    delay(100);
+    Serial.print(".");
+    digitalWrite(D4, 1);
+    delay(100);
+  }
+
+  Serial.println();
+  Serial.print("Connected with IP: ");
+  Serial.println(WiFi.localIP());
+  Serial.println();
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.reconnectWiFi(true);
+
+   Firebase.setString(firebaseData, "Testing", "1" );
+}
+
+void loop() {
+
+//t2();
+  if (digitalRead(D8))//Date change
+
+  {
+    inc();
+    while (digitalRead(D8))
+      delay(50);
+    Serial.println("In inf");
+
+    return;
+  }
+
+
+  int i = checkCard();
+  Serial.println(i);
+  if(i>0 && i<5)
+    writeDB(_name[i-1]);
+
+  delay(300);
+
 }
